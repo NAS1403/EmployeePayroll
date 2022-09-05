@@ -12,6 +12,7 @@ import java.util.Optional;
 @Service
 public class EmployeeService implements EmployeeServiceInterface{
 
+    @Autowired
     private EmployeeRepository employeeRepository;
 
     public Employee addEmployee(EmployeeDTO employeeDTO){

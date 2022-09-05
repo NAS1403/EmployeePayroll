@@ -3,6 +3,7 @@ package com.bridgelabz.employeepayroll.controller;
 import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
 import com.bridgelabz.employeepayroll.dto.ResponseDTO;
 import com.bridgelabz.employeepayroll.service.EmployeeServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/home")
 public class EmployeeController {
+
+    @Autowired
     EmployeeServiceInterface employeeService;
 
     @PostMapping("/addEmployee")
