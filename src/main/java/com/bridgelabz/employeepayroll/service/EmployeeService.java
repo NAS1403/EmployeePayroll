@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayroll.service;
 
 import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
+import com.bridgelabz.employeepayroll.exception.CustomException;
 import com.bridgelabz.employeepayroll.model.Employee;
 import com.bridgelabz.employeepayroll.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,39 @@ public class EmployeeService implements EmployeeServiceInterface{
     }
 
     public Employee updateEmployee(EmployeeDTO employeeDTO,int id){
-        Employee employee = employeeRepository.findById(id).get();
-        employee.setName(employeeDTO.getName());
-        employee.setSalary(employeeDTO.getSalary());
-        return  employeeRepository.save(employee);
+        if(employeeRepository.findById(id).isPresent()) {
+            Employee employee = employeeRepository.findById(id).get();
+            employee.setName(employeeDTO.getName());
+            employee.setSalary(employeeDTO.getSalary());
+            return employeeRepository.save(employee);
+        }
+        else{
+            throw new CustomException("Employee by ID "+id+" is not present");
+        }
     }
 
     public String deleteEmployee(int id){
-        employeeRepository.deleteById(id);
-        return "Delete SuccessFull";
+        if(employeeRepository.findById(id).isPresent()) {
+            employeeRepository.deleteById(id);
+            return "Delete SuccessFull";
+        }
+        else
+            throw new CustomException("Employee by ID "+id+" is not present");
     }
 
     public Optional<Employee> getEmployeeById(int id){
-       return employeeRepository.findById(id);
+        if(employeeRepository.findById(id).isPresent()) {
+            return employeeRepository.findById(id);
+        }
+        else
+            throw new CustomException("Employee by ID "+id+" is not present");
     }
 
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees(){
+        if(!employeeRepository.findAll().isEmpty()){
        return employeeRepository.findAll();
+        }
+        else
+            throw new CustomException("No employee in database to display");
     }
 }
