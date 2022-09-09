@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayroll.service;
 
 import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
+import com.bridgelabz.employeepayroll.email.EmailService;
 import com.bridgelabz.employeepayroll.exception.CustomException;
 import com.bridgelabz.employeepayroll.model.Employee;
 import com.bridgelabz.employeepayroll.repository.EmployeeRepository;
@@ -16,8 +17,12 @@ public class EmployeeService implements EmployeeServiceInterface{
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    EmailService emailService;
+
     public Employee addEmployee(EmployeeDTO employeeDTO){
         Employee employee = new Employee(employeeDTO);
+        emailService.sendEmail(employeeDTO.getEmail(),"Employee added","Hello "+employeeDTO.getName()+" your employee record was added successfully");
       return  employeeRepository.save(employee);
     }
 

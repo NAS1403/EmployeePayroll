@@ -19,7 +19,17 @@ public class Employee {
     public List<String> department;
     public int salary;
     public LocalDate startDate;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String notes;
+    public String email;
 
     public Integer getId() {
         return id;
@@ -107,6 +117,7 @@ public class Employee {
         this.startDate = employeeDTO.getStartDate();
         this.salary = employeeDTO.getSalary();
         this.department = employeeDTO.getDepartment();
+        this.email = employeeDTO.getEmail();
     }
 
 
