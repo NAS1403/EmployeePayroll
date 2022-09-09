@@ -20,6 +20,7 @@ public class EmployeeDTO {
     public int salary;
     public String gender;
     public String notes;
+    public String email;
     public LocalDate startDate;
     public List<String> department;
 }
